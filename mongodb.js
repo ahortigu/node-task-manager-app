@@ -9,7 +9,13 @@ const databaseName = 'task-manager'
 // It creates an ID (5e29a50e3486320874fa827d)
 //const id = mongodb.ObjectID
 
-// const id = new ObjectID()
+const id = new ObjectID()
+
+// To buffer/binary
+console.log(id.id.length)
+
+//Back to string
+console.log(id.toHexString().length)
 
 // // To buffer/binary
 // console.log(id.id.length)
@@ -27,39 +33,66 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error,client) => 
 const db = client.db(databaseName)
 
 
-    db.collection('tasks').deleteOne({
-        description: "Clean the house"
-    }).then((result)=>{
+    const updatePromise = db.collection('Users').updateOne({
+        _id: new ObjectID("5e298ac91dfe87288018f84c")
+    },{
+        $set: {
+            name: 'Juanito'
+        }
+    })
+    updatePromise.then((result) =>{
         console.log(result)
-    }).catch((error)=>{
+    }).catch((error) => {
         console.log(error)
+
     })
 })
-//     db.collection('users').deleteMany({
-//         age: 27
-//     }).then((result)=> {
-//         console.log(result)
-//     }).catch((error)=>{
-//         console.log(error)
+
+
+
+
+
+
+
+
+
+    // db.collection('users').findOne({_id:new ObjectID("5e29aced74d406471c385add")}, (error, user) =>{
+    //     if(error){
+    //        return console.log('Unable to fetch')
+    // }
+    //     console.log(user)  
+    // })
+
+    // db.collection('tasks').findOne({_id:new ObjectID("5e29a1084f4857454c67cdad") }, (error, user) =>{
+    //     if(error){
+    //        return console.log(task)
+    // }
+    //     console.log(user)  
+    // })
+
+    //  db.collection('tasks').find({completed: false}).toArray((error, tasks) => {
+    //      console.log(tasks)
+    // })
+ 
+    // .find returns a cursor!!! So if I want a array I have to use the method toArray, for instance. 
+//     db.collection('users').find({age:27}).toArray((error, users) => {
+//     console.log(users)
 //     })
+//     db.collection('users').find({age:28}).count((error, count) => {
+//         console.log(count)
+//    })
 // })
+    //  db.collection('users').insertOne({
+    //             name: 'Dorina',
+    //             age: 26
+    //  }, (error, result) => {
+    //      if(error){
+    //          return console.log('Unable to insert user')
 
-    
+    //      }
+    //      console.log(result.ops)
+    //  })
 
-//     db.collection('tasks').updateMany({
-//             completed: false
-//     }, {
-//         $set: {
-//             completed: true
-//         }
-
-//     }).then((result )=>{
-//         //modifiedCount reports the number of rows that have been modified
-//         console.log(result.modifiedCount)
-//     }).catch((error) =>{
-//         console.log(error)
-//     })
-// })
 
 
 
@@ -160,4 +193,15 @@ const db = client.db(databaseName)
 //        }, {
 //         description: 'Do grosery',
 //         completed: false
+
+
+    
+//    }], (error, result) => {
+//         if(error){
+//           return console.log('Unable to insert tasks')
+//         }
+//     //ops it is an array of the documents that I am sending
+//     console.log(result.ops)
+//     })
+
 
