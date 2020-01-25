@@ -11,32 +11,45 @@ const Task = mongoose.model('Task',{
     description:{
         type: String,
         required: true,
-        validate(value){
-            if (value === ''){
-                return console.log('Please enter a task')
-            }
-            else{
-                console.log('Excellent! You have added the following new task')
-            }
-        },
-        trim: true
+        trim: true,
     },
-    priority: {
+    creator:{
+        type: String,
+        required: true 
+    },
+    email:{
+        type: String,
+        required: true,
+        validate(value){
+            if(!validator.isEmail(value)){
+                throw new Error('Email is invalid')
+            }
+        }
+    },
+    password:{
+        type: String,
+        required: true,
+        minlength: 7,
+        trim: true,
+        validate(value){
+            if(value.toLowerCase.inclues('password')){
+                throw new Error('Password cannot contain "password"')
+            }
+        }
+    },
+    priority:{
         type: Array,
         required: false,
-
+        values: [1,2,3,4],
     },
-    completed: {
+    completed:{
         type: Boolean,
         required: true
     }
  })
 
-
-
 const task = new Task({
-    description: 'Go dacing',
-    completed: false
+ 
 })
 task.save().then(() =>{
         console.log(task)
