@@ -18,7 +18,7 @@ app.post('/users',(req,res) => {
         }).catch((e) => {
             res.status(400).send(e)
         })
-})
+}) 
 
 app.post('/tasks',(req,res) => {
     const task = new Task(req.body)
