@@ -81,7 +81,7 @@ app.post('/tasks',(req,res) => {
 
 
 app.get('/tasks', (req, res) => {
-    User.find({}).then((tasks) =>{
+    Task.find({}).then((tasks) =>{
         res.send(tasks)
     }).catch((e) => {
         res.status(500).send(e)
