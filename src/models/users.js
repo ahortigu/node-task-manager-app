@@ -29,16 +29,19 @@ const User = mongoose.model('User',{
     },
  })
 
-const user = new User({
-    name: null,
-    email: "mike.afe@gmail.com",
-    password:"jaws23s",
-})
 
-user.save().then(() =>{
-        console.log(user)
-    }).catch((error) => {
-        console.log("User Error. Cause; " + error)
-})
+ // THE USER MAKER
+
+ // const user = new User({
+//     name: 'Laura',
+//     email: "laura.afe@gmail.com",
+//     password:"jmos23s",
+// })
+
+// user.save().then(() =>{
+//         console.log(user)
+//     }).catch((error) => {
+//         console.log("User Error. Cause; " + error)
+// })
 
 module.exports = User

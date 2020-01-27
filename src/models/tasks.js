@@ -23,18 +23,20 @@ const Task = mongoose.model('Task',{
     }
  })
 
-const task = new Task({
-    description:"What a movie",
-    creator: "Giammarco",
-    priority:"1",
-    completed: true,
-})
+// THE TASK MAKER
 
-task.save().then(() =>{
-        console.log(task)
-    }).catch((error) => {
-        console.log(error)
-})
+// const task = new Task({
+//     description:"Read a book",
+//     creator: "Mike",
+//     priority: 1,
+//     completed: true,
+// })
+
+// task.save().then(() =>{
+//         console.log(task)
+//     }).catch((error) => {
+//         console.log(error)
+// })
 
 
 module.exports = Task
