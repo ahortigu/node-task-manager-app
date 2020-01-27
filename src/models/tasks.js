@@ -11,7 +11,6 @@ const Task = mongoose.model('Task',{
         type: String,
         required: true 
     },
-    
     priority:{
         type: Array,
         required: false,

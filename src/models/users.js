@@ -27,15 +27,20 @@ const User = mongoose.model('User',{
         //     }
         // }
     },
+    age:{
+        type: Number,
+        required: true,
+        }
  })
 
 
  // THE USER MAKER
 
- // const user = new User({
-//     name: 'Laura',
-//     email: "laura.afe@gmail.com",
-//     password:"jmos23s",
+//  const user = new User({
+//     name: 'Juana',
+//     email: "juana.afe@gmail.com",
+//     password:"jdcs23s",
+//     age: "26"
 // })
 
 // user.save().then(() =>{
