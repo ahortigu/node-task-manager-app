@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -55,8 +56,14 @@ const userSchema = new mongoose.Schema({
 
 
 // pre/post an event happens and it has to be a normal function because arrow function don't work with this.
-// statics allows to access any  from the Schema directly. 
-userSchema.statics.findByCredential = async (email, password) =>{
+userSchema.methods.generateAuthToken = async function () {
+    const user = this
+    const token = jwt.sign({_id: user._id.toString()}, 'thisisevenmoresecret')
+        return token
+}
+
+// statics are accesible in the models instancesallows to access any  from the Schema directly. 
+userSchema.statics.findByCredentials = async (email, password) =>{
     const user = await User.findOne({email})
     if(!user){
         throw new Error('Unable to login')
