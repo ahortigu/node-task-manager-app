@@ -5,8 +5,10 @@ const taskRouter = require('./routers/task')
 const router = new express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-
 const app = express()
+const Task = require('./models/task')
+const User = require('./models/user')
+
 
 
 // next relates to a middleware function.
@@ -34,26 +36,16 @@ app.use(userRouter)
 app.use(taskRouter)
 
 
-
-
-// const myFunction = async () => {
-//     const token = jwt.sign({_id: 'abc123'}, 'thisistopsecret', {expiresIn: '4 hours'})
-//     console.log(token)
-//     const data = jwt.verify(token,'thisistopsecret')
-//     console.log(data)
-//}
-
-//     const password = 'floresRojas'
-//     const hashedPassword = await bcrypt.hash(password, 8)
-//     console.log(password)
-//     console.log(hashedPassword)
-
-//     const isMatch = await bcrypt.compare('floreRojas', hashedPassword)
-//     console.log(isMatch)
-// }
-
-
 const port = process.env.PORT || 3000
 app.listen(port,()=>{
     console.log('Server is up on port ' + port)
 })
+
+const main = async() => {
+    const user = await User.findById('5e31b7e78aeb59558ca1bc71')
+    await user.populate('tasks').execPopulate()
+    //user.tasks refers to the task array which is VIRTUAL
+    console.log(user.tasks)
+}
+
+main()

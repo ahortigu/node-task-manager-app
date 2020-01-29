@@ -7,19 +7,17 @@ const Task = mongoose.model('Task',{
         required: true,
         trim: true,
     },
-    creator:{
-        type: String,
-        required: true 
-    },
     priority:{
         type: Array,
         required: false,
         values: [1,2,3,4],
     },
-    completed:{
-        type: Boolean,
-        required: true
-    }
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+          // This is coming from the User model/schema
+        ref:'User'
+    },
  })
 
 // THE TASK MAKER

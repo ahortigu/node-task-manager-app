@@ -42,26 +42,30 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true 
         }
-    }]
-
+    }],
  })
 
 
- // THE USER MAKER
+ // Instead of storing all the tasks as an array in the user model therefore in MongoDb a virtual property is created.
+ userSchema.virtual('tasks', {
+     ref: 'Task',
+     // Lirally the real and local field.
+     localField:'_id',
+     // The reference of the relationship we want to create.
+     foreignField:'owner'
+ })
 
-//  const user = new User({
-//     name: 'Juana',
-//     email: "juana.afe@gmail.com",
-//     password:"jdcs23s",
-//     age: "26"
-// })
+userSchema.methods.toJSON = function () {
+    const user = this
+//  ToObjects returns raw data
+    const userObject= user.toObject()
+    delete userObject.password
 
-// user.save().then(() =>{
-//         console.log(user)
-//     }).catch((error) => {
-//         console.log("User Error. Cause; " + error)
-// }))
+    delete userObject.password
+    delete userObject.tokens
 
+    return userObject
+}
 
 // pre/post an event happens and it has to be a normal function because arrow function don't work with this.
 userSchema.methods.generateAuthToken = async function () {
@@ -80,10 +84,6 @@ userSchema.statics.findByCredentials = async (email, password) =>{
     }
 
     const isMatch = await bcrypt.compare(password, user.password)
-    
-    if(!isMatch){
-        throw new Error('Unable to login')
-    }
     return user
 }
 
@@ -99,6 +99,22 @@ userSchema.pre('save', async function(next) {
     next()
 })
 
-const User = mongoose.model('User', userSchema)
 
+ // THE USER MAKER
+
+//  const user = new User({
+//     name: 'Juana',
+//     email: "juana.afe@gmail.com",
+//     password:"jdcs23s",
+//     age: "26"
+// })
+
+// user.save().then(() =>{
+//         console.log(user)
+//     }).catch((error) => {
+//         console.log("User Error. Cause; " + error)
+// }))
+
+
+const User = mongoose.model('User', userSchema)
 module.exports = User
