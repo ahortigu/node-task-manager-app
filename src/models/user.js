@@ -35,7 +35,15 @@ const userSchema = new mongoose.Schema({
     age:{
         type: Number,
         required: true,
+    },
+    // Array of tokens
+    tokens: [{
+        token:{
+            type: String,
+            required: true 
         }
+    }]
+
  })
 
 
@@ -58,7 +66,9 @@ const userSchema = new mongoose.Schema({
 // pre/post an event happens and it has to be a normal function because arrow function don't work with this.
 userSchema.methods.generateAuthToken = async function () {
     const user = this
-    const token = jwt.sign({_id: user._id.toString()}, 'thisisevenmoresecret')
+    const token = jwt.sign({_id: user._id.toString()}, 'thisistopsecret') 
+    user.tokens = user.tokens.concat({token})
+    await user.save()
         return token
 }
 

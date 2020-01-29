@@ -7,7 +7,25 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const app = express()
-const port = process.env.PORT || 3000
+
+
+// next relates to a middleware function.
+// app.use((req,res,next)=>{
+   
+//     if(req.method === 'GET'){
+//         res.send('GET requests are disabled')
+
+//     } else {
+//         next()
+
+//     }
+// })
+
+
+// app.use((req,res,next)=>{
+//    res.status(503).send('This website is under maintainance')
+// })
+
 
 // It grabs incoming data into JSON
 app.use(express.json())
@@ -15,18 +33,15 @@ app.use(router)
 app.use(userRouter)
 app.use(taskRouter)
 
-app.listen(port,()=>{
-    console.log('Server is up on port ' + port)
-})
 
 
 
-const myFunction = async () => {
-    const token = jwt.sign({_id: 'abc123'}, 'thisistopsecret', {expiresIn: '4 hours'})
-    console.log(token)
-    const data = jwt.verify(token,'thisistopsecret')
-    console.log(data)
-}
+// const myFunction = async () => {
+//     const token = jwt.sign({_id: 'abc123'}, 'thisistopsecret', {expiresIn: '4 hours'})
+//     console.log(token)
+//     const data = jwt.verify(token,'thisistopsecret')
+//     console.log(data)
+//}
 
 //     const password = 'floresRojas'
 //     const hashedPassword = await bcrypt.hash(password, 8)
@@ -37,4 +52,8 @@ const myFunction = async () => {
 //     console.log(isMatch)
 // }
 
-myFunction()
+
+const port = process.env.PORT || 3000
+app.listen(port,()=>{
+    console.log('Server is up on port ' + port)
+})
