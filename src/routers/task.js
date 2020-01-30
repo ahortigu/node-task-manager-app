@@ -1,4 +1,5 @@
 const express = require('express')
+const sharp = require('sharp')
 const Task = require('../models/task')
 const auth = require('../middleware/auth')
 const router = new express.Router()
@@ -18,6 +19,8 @@ router.post('/tasks', auth, async (req, res) => {
     }
 })
 
+
+// QUERY, QUERY, QUERY, QUERY, QUERY, QUERY, QUERY, QUERY, QUERY, QUERY, QUERY
 router.get('/tasks', auth, async (req, res) => {
     const match = {}
     const sort ={}

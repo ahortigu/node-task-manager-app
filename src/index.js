@@ -12,24 +12,20 @@ const jwt = require('jsonwebtoken')
 const Task = require('./models/task')
 const User = require('./models/user')
 
+// const multer = require('multer')
+// const upload = multer({
+//     dest:'images'
+// })
 
+// app.post('/upload', upload.single('upload'),(req, res) =>{
+//     res.send()
+// })
 
 // next relates to a middleware function.
-// app.use((req,res,next)=>{
-   
-//     if(req.method === 'GET'){
-//         res.send('GET requests are disabled')
-
-//     } else {
-//         next()
-
-//     }
-// })
 
 
-// app.use((req,res,next)=>{
-//    res.status(503).send('This website is under maintainance')
-// })
+
+
 
 
 // It grabs incoming data into JSON
