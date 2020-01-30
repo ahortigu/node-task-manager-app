@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 
-const Task = mongoose.model('Task',{
+const taskSchema = new mongoose.Schema({
     description:{
         type: String,
         required: true,
@@ -17,8 +17,17 @@ const Task = mongoose.model('Task',{
         required: true,
           // This is coming from the User model/schema
         ref:'User'
-    },
- })
+     },
+    completed: {
+        type: Boolean,
+        default: false
+    }
+}, {
+    timestamps: true
+})
+
+
+const Task = mongoose.model('Task', taskSchema)
 
 // THE TASK MAKER
 
